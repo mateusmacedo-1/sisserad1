@@ -55,7 +55,7 @@
     private string? failMessage = "";
     private async Task HandleSubmit()
     {
-        var client = HttpClientFactory.CreateClient("ApiSerad");
+        var client = HttpClientFactory.CreateClient("ApiSerad"); 
         var response = await client.PostAsJsonAsync("/api/Clientes", clienteInputModel);
         if (response.IsSuccessStatusCode)
         {
