@@ -37,7 +37,7 @@ jobs:
       - name: build
         run: dotnet build -c Release --no-restore
       - name: publish dotnet
-        run: dotnet publish  Blazor/Blazor.csproj  -c Release -o docs
+        run: dotnet publish  Blazor/Blazor.csproj  -c Release -o docs --nologo
       - name: Setup pages
         uses: actions/configure-pages@v4
       - name: Upload
