@@ -1,0 +1,12 @@
+﻿version: "3.8"
+
+services:
+  db:
+    container_name: serad_db_container
+    image: postgres
+    ports:
+      - "5331:5432"
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: serad
