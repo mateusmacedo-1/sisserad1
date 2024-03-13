@@ -2798,11 +2798,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\mateu\\OneDrive\\Documentos\\serad\\Sisserad\\API\\API.csproj",
+      "projectUniqueName": "C:\\Users\\mateu\\OneDrive\\Documentos\\serad\\Sisserad\\api\\API.csproj",
       "projectName": "API",
-      "projectPath": "C:\\Users\\mateu\\OneDrive\\Documentos\\serad\\Sisserad\\API\\API.csproj",
+      "projectPath": "C:\\Users\\mateu\\OneDrive\\Documentos\\serad\\Sisserad\\api\\API.csproj",
       "packagesPath": "C:\\Users\\mateu\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\mateu\\OneDrive\\Documentos\\serad\\Sisserad\\API\\obj\\",
+      "outputPath": "C:\\Users\\mateu\\OneDrive\\Documentos\\serad\\Sisserad\\api\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\mateu\\AppData\\Roaming\\NuGet\\NuGet.Config"
@@ -2827,6 +2827,11 @@
         "warnAsError": [
           "NU1605"
         ]
+      },
+      "restoreAuditProperties": {
+        "enableAudit": "true",
+        "auditLevel": "low",
+        "auditMode": "direct"
       }
     },
     "frameworks": {

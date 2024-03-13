@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "LCSz6qcwO1iqC+gTnXroNwQy9fe3HadtKm1WtaUaewlDclVZ205rHs1L+4ApO9l6pLroC73Q0Z+0uN9crpGzXw==",
+  "dgSpecHash": "VVrcMOob+r0oFiZB+c9hB4R3dnbthJGbCQfNK5lMMfUV7Xc4D8NC9DI+TLbVfbeary9R692dDLvQejAglCcvtw==",
   "success": true,
-  "projectFilePath": "C:\\Users\\mateu\\OneDrive\\Documentos\\serad\\Sisserad\\API\\API.csproj",
+  "projectFilePath": "C:\\Users\\mateu\\OneDrive\\Documentos\\serad\\Sisserad\\api\\API.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\mateu\\.nuget\\packages\\automapper\\13.0.1\\automapper.13.0.1.nupkg.sha512",
     "C:\\Users\\mateu\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",
