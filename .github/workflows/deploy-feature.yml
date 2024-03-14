@@ -42,7 +42,7 @@ jobs:
       - name: publish dotnet
         run: dotnet publish  Blazor/Blazor.csproj  -c Release -o docs --nologo
 
-        - name: upload artefact
+      - name: upload artefact
         uses: actions/upload-artifact@v2
         with:
           name: artefatos-estaticos
