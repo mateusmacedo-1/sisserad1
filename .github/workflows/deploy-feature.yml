@@ -18,7 +18,26 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
-  build:
+  deploy-back:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Login to Docker Hub
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_PASSWORD }}
+
+      - name: Build and publish API image
+        run: |
+          docker build -t seradapi .
+          docker tag seradapi mateus314/seradapi:latest
+          docker push mateus314/seradapi:latest
+  build-front:
+  needs: deploy-back
     runs-on: ubuntu-latest
     steps:
 
@@ -47,21 +66,10 @@ jobs:
         with:
           name: artefatos-estaticos
           path: 'docs/wwwroot' 
-  deploy-back:
-    runs-on: ubuntu-latest
 
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-
-      - name: Build and publish API image
-        run: |
-          docker build -t seradapi .
-          docker tag seradapi mateus314/seradapi:latest
-          docker push mateus314/seradapi:latest
 
   deploy-front:
-    needs: build
+    needs: build-front
     environment: 
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url}}
