@@ -42,6 +42,12 @@ jobs:
       - name: publish dotnet
         run: dotnet publish  Blazor/Blazor.csproj  -c Release -o docs --nologo
 
+        - name: upload artefact
+        uses: actions/upload-artifact@v2
+        with:
+          name: artefatos-estaticos
+          path: 'docs/wwwroot' 
+
   deploy:
     needs: build
     environment: 
@@ -49,7 +55,11 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url}}
     runs-on: ubuntu-latest
     steps:
-
+      - name: Baixar artefato
+        uses: actions/download-artifact@v2
+        with:
+          name: artefatos-estaticos
+          path: 'docs/wwwroot'
       - name: Setup pages
         uses: actions/configure-pages@v4
 
