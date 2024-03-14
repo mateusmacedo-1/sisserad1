@@ -11,6 +11,7 @@ builder.Services.AddAutoMapper(typeof(ClienteProfile), typeof(EnderecoProfile));
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
 builder.Services.AddDbContext<SeradDbContext>(options =>
 {
     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection"));

@@ -47,8 +47,20 @@ jobs:
         with:
           name: artefatos-estaticos
           path: 'docs/wwwroot' 
+  deploy-back:
+    runs-on: ubuntu-latest
 
-  deploy:
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Build and publish API image
+        run: |
+          docker build -t seradapi .
+          docker tag seradapi mateus314/seradapi:latest
+          docker push mateus314/seradapi:latest
+
+  deploy-front:
     needs: build
     environment: 
       name: github-pages

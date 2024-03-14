@@ -8,6 +8,6 @@ builder.RootComponents.Add<HeadOutlet>("head::after");
 
 builder.Services.AddHttpClient("ApiSerad", client =>
 {
-    client.BaseAddress = new Uri(" http://localhost:5268");
+    client.BaseAddress = new Uri("https://sisserad-api.onrender.com");
 });
 await builder.Build().RunAsync();
