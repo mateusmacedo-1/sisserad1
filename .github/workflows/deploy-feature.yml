@@ -23,10 +23,10 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
 
       - name: Login to Docker Hub
-        uses: docker/login-action@v2
+        uses: docker/login-action@v3
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_PASSWORD }}
@@ -61,12 +61,6 @@ jobs:
       - name: publish dotnet
         run: dotnet publish  Blazor/Blazor.csproj  -c Release -o docs --nologo
 
-      - name: upload artefact
-        uses: actions/upload-artifact@v2
-        with:
-          name: artefatos-estaticos
-          path: 'docs/wwwroot' 
-
 
   deploy-front:
     needs: build-front
@@ -75,11 +69,6 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url}}
     runs-on: ubuntu-latest
     steps:
-      - name: Baixar artefato
-        uses: actions/download-artifact@v2
-        with:
-          name: artefatos-estaticos
-          path: 'docs/wwwroot'
       - name: Setup pages
         uses: actions/configure-pages@v4
 
