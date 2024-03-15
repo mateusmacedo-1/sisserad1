@@ -37,6 +37,9 @@ jobs:
       - name: Install .NET Wasm Tools
         run: dotnet workload install wasm-tools
 
+      - name: Restore Dependencies
+        run: dotnet restore
+
       - name: build
         run: dotnet build 
 
