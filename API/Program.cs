@@ -16,18 +16,15 @@ builder.Services.AddDbContext<SeradDbContext>(options =>
 {
     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection"));
 });
-builder.Services.AddCors(o =>
+builder.Services.AddCors(options =>
 {
-    o.AddDefaultPolicy(
-        policy =>
-        {
-            policy.AllowAnyOrigin()
-                .AllowAnyMethod()
-                .AllowAnyHeader();
-        }
-        
-        );
+    options.AddPolicy(name: "front-end",
+                      policy  =>
+                      {
+                          policy.WithOrigins("https://sisserad1.onrender.com");
+                      });
 });
+
 
 var app = builder.Build();
 
@@ -39,7 +36,7 @@ if (app.Environment.IsDevelopment())
 }
 
 
-app.UseCors();
+app.UseCors("front-end");
 app.MapControllers();
 app.UseHttpsRedirection();
 app.Run();
