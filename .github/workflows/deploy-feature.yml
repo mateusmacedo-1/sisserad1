@@ -37,6 +37,9 @@ jobs:
       - name: Install .NET Wasm Tools
         run: dotnet workload install wasm-tools
 
+      - name: build
+        run: dotnet build 
+
       - name: publish dotnet
         run: dotnet publish Blazor/Blazor.csproj -c Release -o docs --nologo
 
