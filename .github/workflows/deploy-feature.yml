@@ -37,7 +37,7 @@ jobs:
           docker tag seradapi mateus314/seradapi:latest
           docker push mateus314/seradapi:latest
   build-front:
-  needs: deploy-back
+    needs: deploy-back
     runs-on: ubuntu-latest
     steps:
 
