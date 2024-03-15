@@ -28,6 +28,18 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
+
+      - name: Setup .NET8
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: 8.0.x
+
+      - name: Install .NET Wasm Tools
+        run: dotnet workload install wasm-tools
+
+      - name: publish dotnet
+        run: dotnet publish Blazor/Blazor.csproj -c Release -o docs --nologo
+
       - name: Setup pages
         uses: actions/configure-pages@v4
 
