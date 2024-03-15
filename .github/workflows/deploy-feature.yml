@@ -18,7 +18,10 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
-  deploy-back:
+  deploy:
+    environment: 
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url}}
     runs-on: ubuntu-latest
 
     steps:
@@ -36,13 +39,6 @@ jobs:
           docker build -t seradapi .
           docker tag seradapi mateus314/seradapi:latest
           docker push mateus314/seradapi:latest
-  build-front:
-    needs: deploy-back
-    runs-on: ubuntu-latest
-    steps:
-
-      - name: Checkout
-        uses: actions/checkout@v4
 
       - name: Setup .NET8
         uses: actions/setup-dotnet@v3
@@ -61,25 +57,6 @@ jobs:
       - name: publish dotnet
         run: dotnet publish  Blazor/Blazor.csproj  -c Release -o docs --nologo
 
-      - name: upload artefact
-        uses: actions/upload-artifact@v2
-        with:
-          name: artefatos-estaticos
-          path: 'docs/wwwroot' 
-
-
-  deploy-front:
-    needs: build-front
-    environment: 
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url}}
-    runs-on: ubuntu-latest
-    steps:
-      - name: Baixar artefato
-        uses: actions/download-artifact@v2
-        with:
-          name: artefatos-estaticos
-          path: 'docs/wwwroot'
       - name: Setup pages
         uses: actions/configure-pages@v4
 
