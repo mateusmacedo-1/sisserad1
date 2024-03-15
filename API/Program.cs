@@ -21,7 +21,7 @@ builder.Services.AddCors(options =>
     options.AddPolicy(name: "front-end",
                       policy  =>
                       {
-                          policy.WithOrigins("https://sisserad1.onrender.com").WithHeaders("Access-Control-Allow-Origin");
+                          policy.WithOrigins("https://sisserad1.onrender.com").AllowAnyMethod().AllowAnyHeader();;
                       });
 });
 
