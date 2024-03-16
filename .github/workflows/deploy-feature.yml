@@ -53,7 +53,7 @@ jobs:
           git checkout -b feature-deploy
           git add docs 
           git commit -m "Move docs to feature-deploy branch"
-          git pull
+          git pull origin feature-deploy 
           git push origin feature-deploy 
   publish-back-image:
     runs-on: ubuntu-latest
