@@ -53,7 +53,7 @@ jobs:
           git checkout -b feature-deploy 
           git add docs
           git commit -m "Move docs to feature-deploy branch"
-          git config pull.rebase false
+          git checkout .
           git pull origin feature-deploy --allow-unrelated-histories
           git push origin feature-deploy
 
