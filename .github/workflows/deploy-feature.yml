@@ -50,7 +50,6 @@ jobs:
         run: |
           git config user.email "actions@github.com"
           git config user.name "GitHub Actions"
-          git remote set-url origin "https://github.com/${{ github.repository }}.git"
           git checkout -b feature-deploy 
           git pull origin feature-deploy  
           git add docs
