@@ -49,8 +49,8 @@ jobs:
       - name: Move docs to another branch
         run: |
           git checkout -b feature-deploy  
-          git add docs/*  
-          git commit -m 
+          git add docs
+          git commit -m "deploy"
           git push origin feature-deploy 
   publish-back-image:
     runs-on: ubuntu-latest
