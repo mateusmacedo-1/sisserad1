@@ -46,20 +46,12 @@ jobs:
       - name: publish dotnet
         run: dotnet publish ClientBlazor/ClientBlazor.csproj -c Release -o docs --nologo
 
-
-      #dps de compilar manda a pasta docs pra branch de deploy
-
-      - name: Checkout main branch
-        uses: actions/checkout@v2
-        with:
-          ref: feature 
-      - name: Move docs to deploy branch
+      - name: Move docs to another branch
         run: |
           git checkout -b feature-deploy  
-          mv docs . 
-          git add .
-          git commit -m "Move docs to feature-deploy branch"
-          git push origin feature-deploy  
+          git add docs/*  
+          git commit -m 
+          git push origin feature-deploy 
   publish-back-image:
     runs-on: ubuntu-latest
     steps:
