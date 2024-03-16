@@ -50,11 +50,13 @@ jobs:
         run: |
           git config user.email "actions@github.com"
           git config user.name "GitHub Actions"
-          git checkout -b feature-deploy
-          git add docs 
+          git remote set-url origin "https://github.com/${{ github.repository }}.git"
+          git checkout -b feature-deploy 
+          git pull origin feature-deploy  
+          git add docs
           git commit -m "Move docs to feature-deploy branch"
-          git pull origin feature-deploy 
-          git push origin feature-deploy 
+          git push origin feature-deploy
+
   publish-back-image:
     runs-on: ubuntu-latest
     steps:
