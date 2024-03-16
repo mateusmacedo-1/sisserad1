@@ -54,7 +54,7 @@ jobs:
           git add docs
           git commit -m "Move docs to feature-deploy branch"
           git config pull.rebase false
-          git pull origin feature-deploy
+          git pull origin feature-deploy --allow-unrelated-histories
           git push origin feature-deploy
 
   publish-back-image:
