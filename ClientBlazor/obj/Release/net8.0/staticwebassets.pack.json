@@ -1,0 +1,77 @@
+{
+  "Files": [
+    {
+      "Id": "/home/runner/work/sisserad1/sisserad1/ClientBlazor/bin/Release/net8.0/wwwroot/_framework/blazor.webassembly.js",
+      "PackagePath": "staticwebassets/_framework/blazor.webassembly.js"
+    },
+    {
+      "Id": "/home/runner/work/sisserad1/sisserad1/ClientBlazor/obj/Release/net8.0/compressed/mutjv9ff5d.gz",
+      "PackagePath": "staticwebassets/_framework/blazor.webassembly.js.gz"
+    },
+    {
+      "Id": "/home/runner/work/sisserad1/sisserad1/ClientBlazor/obj/Release/net8.0/scopedcss/bundle/ClientBlazor.styles.css",
+      "PackagePath": "staticwebassets/ClientBlazor.styles.css"
+    },
+    {
+      "Id": "/home/runner/work/sisserad1/sisserad1/ClientBlazor/obj/Release/net8.0/service-worker-assets.js",
+      "PackagePath": "staticwebassets/service-worker-assets.js"
+    },
+    {
+      "Id": "/home/runner/work/sisserad1/sisserad1/ClientBlazor/obj/Release/net8.0/service-worker/service-worker.published.js",
+      "PackagePath": "staticwebassets/service-worker.js"
+    },
+    {
+      "Id": "/home/runner/work/sisserad1/sisserad1/ClientBlazor/wwwroot/css/app.css",
+      "PackagePath": "staticwebassets/css/app.css"
+    },
+    {
+      "Id": "/home/runner/work/sisserad1/sisserad1/ClientBlazor/wwwroot/css/bootstrap/bootstrap.min.css",
+      "PackagePath": "staticwebassets/css/bootstrap/bootstrap.min.css"
+    },
+    {
+      "Id": "/home/runner/work/sisserad1/sisserad1/ClientBlazor/wwwroot/css/bootstrap/bootstrap.min.css.map",
+      "PackagePath": "staticwebassets/css/bootstrap/bootstrap.min.css.map"
+    },
+    {
+      "Id": "/home/runner/work/sisserad1/sisserad1/ClientBlazor/wwwroot/favicon.png",
+      "PackagePath": "staticwebassets/favicon.png"
+    },
+    {
+      "Id": "/home/runner/work/sisserad1/sisserad1/ClientBlazor/wwwroot/icon-192.png",
+      "PackagePath": "staticwebassets/icon-192.png"
+    },
+    {
+      "Id": "/home/runner/work/sisserad1/sisserad1/ClientBlazor/wwwroot/icon-512.png",
+      "PackagePath": "staticwebassets/icon-512.png"
+    },
+    {
+      "Id": "/home/runner/work/sisserad1/sisserad1/ClientBlazor/wwwroot/index.html",
+      "PackagePath": "staticwebassets/index.html"
+    },
+    {
+      "Id": "/home/runner/work/sisserad1/sisserad1/ClientBlazor/wwwroot/manifest.webmanifest",
+      "PackagePath": "staticwebassets/manifest.webmanifest"
+    },
+    {
+      "Id": "/home/runner/work/sisserad1/sisserad1/ClientBlazor/wwwroot/sample-data/weather.json",
+      "PackagePath": "staticwebassets/sample-data/weather.json"
+    },
+    {
+      "Id": "obj/Release/net8.0/staticwebassets/msbuild.ClientBlazor.Microsoft.AspNetCore.StaticWebAssets.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssets.props"
+    },
+    {
+      "Id": "obj/Release/net8.0/staticwebassets/msbuild.build.ClientBlazor.props",
+      "PackagePath": "build\\ClientBlazor.props"
+    },
+    {
+      "Id": "obj/Release/net8.0/staticwebassets/msbuild.buildMultiTargeting.ClientBlazor.props",
+      "PackagePath": "buildMultiTargeting\\ClientBlazor.props"
+    },
+    {
+      "Id": "obj/Release/net8.0/staticwebassets/msbuild.buildTransitive.ClientBlazor.props",
+      "PackagePath": "buildTransitive\\ClientBlazor.props"
+    }
+  ],
+  "ElementsToRemove": []
+}
