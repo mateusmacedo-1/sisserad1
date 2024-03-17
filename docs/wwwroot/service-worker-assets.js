@@ -25,7 +25,7 @@
       "url": "_framework\/icudt_no_CJK.dat"
     },
     {
-      "hash": "sha256-3\/8fxs83jRUAVQafXnbYEnhg\/njV9eXobRiCCKkRwS0=",
+      "hash": "sha256-wi7M6KTg9oOKA7qHC+rcnWXnCB+ADNdpzO2B5QLCBSM=",
       "url": "_framework\/blazor.boot.json"
     },
     {
@@ -37,7 +37,7 @@
       "url": "_framework\/dotnet.native.wasm"
     },
     {
-      "hash": "sha256-0Ua6waN6roRNCKFW0+PzVuUpy2R+SW5YCRcOlG74NwU=",
+      "hash": "sha256-OFTyAFpIbzIOncF3fi+bXAr5Xm2B5V8QgFB531vndk0=",
       "url": "_framework\/Application.wasm"
     },
     {
@@ -45,15 +45,15 @@
       "url": "_framework\/AutoMapper.wasm"
     },
     {
-      "hash": "sha256-kfNHWXZHt\/YUfiZerUzRwgNrF+7sNq0ED8B7NKK3QRo=",
+      "hash": "sha256-FLxjKBOkzQkbktJa2X6aqG08u+aEREGKG2z8PB8DcYM=",
       "url": "_framework\/ClientBlazor.wasm"
     },
     {
-      "hash": "sha256-K9Jh0VYaf6fi41Vd2seMMYn61Yb0HHqpJfziAPEpatk=",
+      "hash": "sha256-m8tT\/rAnCRLuJRi+ACtuicIeJkJ+cpav8TK9BmvXL5M=",
       "url": "_framework\/Domain.wasm"
     },
     {
-      "hash": "sha256-tqKqIA\/CZZD4y2MladtANaC32F6LhI+vEvQgcLb8iHY=",
+      "hash": "sha256-5jQtW9pb0TXcXQlRayNVQJKwpjcbr0E6MkQZ5WF5Jgo=",
       "url": "_framework\/Infra.wasm"
     },
     {
@@ -397,5 +397,5 @@
       "url": "sample-data\/weather.json"
     }
   ],
-  "version": "bjsfi\/Fz"
+  "version": "uB7EdUcv"
 };
