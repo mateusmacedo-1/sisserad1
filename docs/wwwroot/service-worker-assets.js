@@ -25,7 +25,7 @@
       "url": "_framework\/icudt_no_CJK.dat"
     },
     {
-      "hash": "sha256-ofwLZPruoZqq8a1av5iT7BNHSfK+Rp3pFferRJ7SH8E=",
+      "hash": "sha256-mRbIgwzYHFcNefdq4Ejplf6pstYWh1vndk9ds6Nsqkg=",
       "url": "_framework\/blazor.boot.json"
     },
     {
@@ -37,7 +37,7 @@
       "url": "_framework\/dotnet.native.wasm"
     },
     {
-      "hash": "sha256-xY\/Dq4jPfqwy8mWivF9NOxn1gLKISLDWlNRJ8gQ7NBs=",
+      "hash": "sha256-Aamzj8Js\/cUZxuW6CvMmCFSdEFWjOiafFniz0gxReKI=",
       "url": "_framework\/Application.wasm"
     },
     {
@@ -45,15 +45,15 @@
       "url": "_framework\/AutoMapper.wasm"
     },
     {
-      "hash": "sha256-FG84azBlX+5BaPHQDKOfR7ilXi7epXA60urTxODf+kk=",
+      "hash": "sha256-fiJj+Mdsj4BbsI8Wvxc4PQAja17rAlm+NX8v\/eaaNQM=",
       "url": "_framework\/ClientBlazor.wasm"
     },
     {
-      "hash": "sha256-YjBQ9QxyqMw5p0witi5uNDk0kF7+147YWt100hYzos4=",
+      "hash": "sha256-zc5HAPTlX2WC\/WLtmGxVs7YV1z2r4SjKKTBZDJ0k\/8Q=",
       "url": "_framework\/Domain.wasm"
     },
     {
-      "hash": "sha256-zQvj2QElME\/jSLu2i6a36x08kWiV6s5Yrj9S7k1ggQ4=",
+      "hash": "sha256-gz9QRZgKVVENS3PuRpmg2KJeNT4OcKaK+G0UOkNG3so=",
       "url": "_framework\/Infra.wasm"
     },
     {
@@ -385,7 +385,7 @@
       "url": "icon-512.png"
     },
     {
-      "hash": "sha256-RT96qiangGAE98Tk9wbjKl\/GkKb\/7MBhlJx+GPpZEqc=",
+      "hash": "sha256-X+kMRxBrH6Dm81Kawbe3h+rXZWICgMoHxbsYdhR8uSA=",
       "url": "index.html"
     },
     {
@@ -397,5 +397,5 @@
       "url": "sample-data\/weather.json"
     }
   ],
-  "version": "Q+3JWFJ+"
+  "version": "Nsat60aV"
 };
