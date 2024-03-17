@@ -30,6 +30,8 @@ jobs:
         uses: actions/setup-dotnet@v3
         with:
           dotnet-version: 8.0.x
+      - name: Excluir pasta docs
+        run: rm -rf docs # pra poder gerar do 0 dps
 
       - name: Install .NET Wasm Tools
         run: dotnet workload install wasm-tools
