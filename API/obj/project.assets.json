@@ -2793,19 +2793,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\mateu\\.nuget\\packages\\": {}
+    "/home/runner/.nuget/packages/": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\mateu\\OneDrive\\Documentos\\serad\\Sisserad\\API\\API.csproj",
+      "projectUniqueName": "/home/runner/work/sisserad1/sisserad1/API/API.csproj",
       "projectName": "API",
-      "projectPath": "C:\\Users\\mateu\\OneDrive\\Documentos\\serad\\Sisserad\\API\\API.csproj",
-      "packagesPath": "C:\\Users\\mateu\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\mateu\\OneDrive\\Documentos\\serad\\Sisserad\\API\\obj\\",
+      "projectPath": "/home/runner/work/sisserad1/sisserad1/API/API.csproj",
+      "packagesPath": "/home/runner/.nuget/packages/",
+      "outputPath": "/home/runner/work/sisserad1/sisserad1/API/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\mateu\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        "/home/runner/.nuget/NuGet/NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net8.0"
@@ -2817,8 +2817,8 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "projectReferences": {
-            "C:\\Users\\mateu\\OneDrive\\Documentos\\serad\\Sisserad\\Application\\Application.csproj": {
-              "projectPath": "C:\\Users\\mateu\\OneDrive\\Documentos\\serad\\Sisserad\\Application\\Application.csproj"
+            "/home/runner/work/sisserad1/sisserad1/Application/Application.csproj": {
+              "projectPath": "/home/runner/work/sisserad1/sisserad1/Application/Application.csproj"
             }
           }
         }
@@ -2876,7 +2876,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.200/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/8.0.203/PortableRuntimeIdentifierGraph.json"
       }
     }
   }
