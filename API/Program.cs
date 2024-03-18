@@ -1,30 +1,28 @@
+using Application.Configuration;
 using Application.Profiles;
 using Application.Services;
 using Application.Services.Interfaces;
-using Infra.Persistence;
-using Microsoft.EntityFrameworkCore;
+using Infra.Configuration;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddScoped<IClienteService, ClienteService>();
+builder.Services.GetInfraServices(builder.Configuration);
+builder.Services.GetApplicationServices(builder.Configuration);
 builder.Services.AddAutoMapper(typeof(ClienteProfile), typeof(EnderecoProfile));
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddDbContext<SeradDbContext>(options =>
-{
-    options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection"));
-});
 builder.Services.AddCors(options =>
 {
     options.AddPolicy(name: "front-end",
-                      policy  =>
-                      {
-                          policy.WithOrigins("https://sisserad1.onrender.com").AllowAnyMethod().AllowAnyHeader();
-                          policy.WithOrigins("http://localhost:5058").AllowAnyMethod().AllowAnyHeader();
-                      });
+        policy =>
+        {
+            policy.WithOrigins("https://sisserad1.onrender.com").AllowAnyMethod().AllowAnyHeader();
+            policy.WithOrigins("http://localhost:5058").AllowAnyMethod().AllowAnyHeader();
+        });
 });
+
 
 
 var app = builder.Build();

@@ -1,4 +1,5 @@
-﻿using Application.InputModels;
+﻿using System.ComponentModel.DataAnnotations;
+using Application.InputModels;
 using Application.Services.Interfaces;
 using Application.ViewModels;
 using AutoMapper;
@@ -34,9 +35,14 @@ public class ClientesController(IMapper mapper, IClienteService service) : Contr
     [HttpPost]
     public async Task<ActionResult<ClienteViewModel>> CreateCliente([FromBody] CreateClienteInputModel cliente)
     {
-        var criado = await _service.Create(cliente);
-        var uri = Url.Action("GetCliente");
-        return Created(uri, new {Id = criado.Id});
+        try{
+            var criado = await _service.Create(cliente);
+            var uri = Url.Action("GetCliente");
+            return Created(uri, new {Id = criado.Id});
+        } catch (Exception e) when (e is ValidationException || e is FluentValidation.ValidationException){
+            return BadRequest(e.Message);
+        }
+        
     }
 
     [HttpPut]

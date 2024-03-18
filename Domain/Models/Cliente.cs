@@ -51,7 +51,7 @@ namespace Domain.Models
         [Required(ErrorMessage = "O Documento é obrigatório.")]
         [StringLength(15, ErrorMessage = "O Documento deve ter no máximo 15 caractéres.")]
         [MinLength(10, ErrorMessage = "O Documento deve ter pelo menos 10 caractéres.")]
-        public string? Documento { get; private set; }
+        public string? Documento { get; set; }
 
         [Required(ErrorMessage = "O Tipo do Cliente é obrigatório.")]
         [EnumDataType(typeof(TipoCliente))]

@@ -1,4 +1,5 @@
-﻿using Application.InputModels;
+﻿using Application.Configuration;
+using Application.InputModels;
 using Application.Services.Interfaces;
 using Application.Validators;
 using Application.ViewModels;
@@ -7,13 +8,15 @@ using Domain.Models;
 using FluentValidation;
 using Infra.Persistence;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Application.Services;
 
-public class ClienteService(IMapper mapper, SeradDbContext context) : IClienteService
+public class ClienteService(IMapper mapper, SeradDbContext context, AbstractValidator<Cliente> validator) : IClienteService
 {
     
     private readonly SeradDbContext _context = context;
+    private readonly AbstractValidator<Cliente> _validator = validator;
     private readonly IMapper _mapper = mapper;
     
     public async Task<List<ClienteViewModel>> GetAll()
@@ -39,7 +42,7 @@ public class ClienteService(IMapper mapper, SeradDbContext context) : IClienteSe
     public async Task<ClienteViewModel> Create(CreateClienteInputModel inputModel)
     {
         var cliente = _mapper.Map<Cliente>(inputModel);
-        Validate(cliente, Activator.CreateInstance<ClienteValidator>());
+        Validate(cliente, _validator);
         var criado = _context.Clientes.Add(cliente);
         await _context.SaveChangesAsync();
         return _mapper.Map<ClienteViewModel>(criado.Entity);
@@ -51,7 +54,7 @@ public class ClienteService(IMapper mapper, SeradDbContext context) : IClienteSe
         var cliente = await _context.Clientes.SingleOrDefaultAsync(p => p.Id == inputModel.Id);
         if (cliente == null) return null;
         var clienteEntrada = _mapper.Map<Cliente>(inputModel);
-        Validate(clienteEntrada, Activator.CreateInstance<ClienteValidator>());
+        Validate(clienteEntrada, _validator);
         cliente.AtualizarDados(clienteEntrada);
         var viewModel = _mapper.Map<ClienteViewModel>(cliente);
         return viewModel;
@@ -63,12 +66,13 @@ public class ClienteService(IMapper mapper, SeradDbContext context) : IClienteSe
         _context.Clientes.Remove(cliente);
     }
 
-    public void Validate(Cliente cliente, AbstractValidator<Cliente> validator)
+    public static void Validate(Cliente cliente, AbstractValidator<Cliente> validator)
         {
             if (cliente == null)
                 throw new Exception("Registros não detectados!");
 
-            validator.ValidateAndThrow<Cliente>(cliente);
+            validator.ValidateAndThrow(cliente);
+          
         }
 
 }

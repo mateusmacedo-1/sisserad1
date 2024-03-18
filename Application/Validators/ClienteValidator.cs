@@ -9,43 +9,51 @@ public class ClienteValidator : AbstractValidator<Cliente>
 {
 
 
-    private readonly SeradDbContext? _context ;
+    private readonly SeradDbContext _context;
     
 
-    public ClienteValidator()
+    public ClienteValidator(SeradDbContext context)
     {
+        _context = context;
+
         RuleFor(c => c)
-            .Must(ClienteNãoExiste);
+            .Must(ClienteNãoExiste)
+            .WithMessage("Cliente já cadastrado.");;
 
         When(c => c.Tipo == TipoCliente.Física, () => {
                 RuleFor(c => c.Documento)
-                    .Must(CpfValido);
+                    .NotNull()
+                    .Must(d => CpfValido(d))
+                    .WithMessage("Cpf inválido.");
         });
 
         When(c => c.Tipo == TipoCliente.Jurídica, () => {
                 RuleFor(c => c.Documento)
-                    .Must(CnpjValido);
+                    .NotNull()
+                    .Must(d => CnpjValido(d))
+                    .WithMessage("Cnpj inválido.");
         });
 
     }
 
-    private bool CpfValido(string cpf)
+    private static bool CpfValido(string cpf)
     {
         return DocumentoUtils.ValidarCpf(cpf);
     }
 
-    private bool CnpjValido(string cnpj)
+    private static bool CnpjValido(string cnpj)
     {
-        return DocumentoUtils.ValidarCnpj(cnpj);
+        var a = DocumentoUtils.ValidarCnpj(cnpj);
+        return a;
     }
 
     private bool ClienteNãoExiste(Cliente cliente)
     {
-        var clienteExistente = _context.Clientes
+        var clienteExistente = _context.Clientes.ToList()
         .Where(c => DocumentoUtils.RemoverPontuacaoDocumento(c) == DocumentoUtils.RemoverPontuacaoDocumento(cliente))
-        .SingleOrDefault();
+        .FirstOrDefault(new Cliente());
 
-        if (clienteExistente != null) return true;
+        if (clienteExistente.Equals(new Cliente())) return true;
         return false;
     }
 }

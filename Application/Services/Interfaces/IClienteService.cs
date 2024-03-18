@@ -12,5 +12,4 @@ public interface IClienteService
     Task<ClienteViewModel> Create(CreateClienteInputModel inputModel);
     Task<ClienteViewModel?> Update(UpdateClienteInputModel inputModel);
     void Delete(int id);
-    void Validate(Cliente client, AbstractValidator<Cliente> validator);
 }
