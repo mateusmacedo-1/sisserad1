@@ -1,8 +1,10 @@
 ﻿using Application.InputModels;
 using Application.Services.Interfaces;
+using Application.Validators;
 using Application.ViewModels;
 using AutoMapper;
 using Domain.Models;
+using FluentValidation;
 using Infra.Persistence;
 using Microsoft.EntityFrameworkCore;
 
@@ -37,6 +39,7 @@ public class ClienteService(IMapper mapper, SeradDbContext context) : IClienteSe
     public async Task<ClienteViewModel> Create(CreateClienteInputModel inputModel)
     {
         var cliente = _mapper.Map<Cliente>(inputModel);
+        Validate(cliente, Activator.CreateInstance<ClienteValidator>());
         var criado = _context.Clientes.Add(cliente);
         await _context.SaveChangesAsync();
         return _mapper.Map<ClienteViewModel>(criado.Entity);
@@ -44,9 +47,12 @@ public class ClienteService(IMapper mapper, SeradDbContext context) : IClienteSe
 
     public async Task<ClienteViewModel?> Update(UpdateClienteInputModel inputModel)
     {
+    
         var cliente = await _context.Clientes.SingleOrDefaultAsync(p => p.Id == inputModel.Id);
         if (cliente == null) return null;
-        cliente.AtualizarDados(_mapper.Map<Cliente>(inputModel));
+        var clienteEntrada = _mapper.Map<Cliente>(inputModel);
+        Validate(clienteEntrada, Activator.CreateInstance<ClienteValidator>());
+        cliente.AtualizarDados(clienteEntrada);
         var viewModel = _mapper.Map<ClienteViewModel>(cliente);
         return viewModel;
     }
@@ -56,4 +62,13 @@ public class ClienteService(IMapper mapper, SeradDbContext context) : IClienteSe
         var cliente = _context.Clientes.SingleOrDefault(u => u.Id == id) ?? throw new DbUpdateException("Usuário não encontrado");
         _context.Clientes.Remove(cliente);
     }
+
+    public void Validate(Cliente cliente, AbstractValidator<Cliente> validator)
+        {
+            if (cliente == null)
+                throw new Exception("Registros não detectados!");
+
+            validator.ValidateAndThrow<Cliente>(cliente);
+        }
+
 }
