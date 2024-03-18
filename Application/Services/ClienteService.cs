@@ -11,8 +11,8 @@ namespace Application.Services;
 public class ClienteService(IMapper mapper, SeradDbContext context) : IClienteService
 {
     
-    private SeradDbContext _context = context;
-    private IMapper _mapper = mapper;
+    private readonly SeradDbContext _context = context;
+    private readonly IMapper _mapper = mapper;
     
     public async Task<List<ClienteViewModel>> GetAll()
     {
@@ -53,9 +53,7 @@ public class ClienteService(IMapper mapper, SeradDbContext context) : IClienteSe
     
     public void Delete(int id)
     {
-        var cliente = _context.Clientes.SingleOrDefault(u => u.Id == id);
-        if (cliente == null) throw new DbUpdateException("Usuário não encontrado");
-        ;
+        var cliente = _context.Clientes.SingleOrDefault(u => u.Id == id) ?? throw new DbUpdateException("Usuário não encontrado");
         _context.Clientes.Remove(cliente);
     }
 }

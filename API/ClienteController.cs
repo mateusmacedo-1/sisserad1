@@ -26,7 +26,7 @@ public class ClientesController(IMapper mapper, IClienteService service) : Contr
     public  ActionResult<ClienteDetailsViewModel> GetCliente(int id)
     {
         var cliente = _service.GetById(id);
-        if (cliente == null) return NotFound("Cliente não encontrado");
+        if (cliente?.Nome == null) return NotFound("Cliente não encontrado");
         var viewModel = _mapper.Map<ClienteDetailsViewModel>(cliente);
         return Ok(viewModel);
     }
