@@ -8,6 +8,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddInfraServices(builder.Configuration);
 builder.Services.AddApplicationServices();
+
 builder.Services.AddAutoMapper(typeof(ClienteProfile), typeof(EnderecoProfile));
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();

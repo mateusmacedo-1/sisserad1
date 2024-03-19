@@ -1,4 +1,5 @@
-﻿using Application.Configuration;
+﻿using System.ComponentModel.DataAnnotations;
+using Application.Configuration;
 using Application.InputModels;
 using Application.Services.Interfaces;
 using Application.Validators;
@@ -9,6 +10,7 @@ using FluentValidation;
 using Infra.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using ValidationException = System.ComponentModel.DataAnnotations.ValidationException;
 
 namespace Application.Services;
 
@@ -66,13 +68,28 @@ public class ClienteService(IMapper mapper, SeradDbContext context, AbstractVali
         _context.Clientes.Remove(cliente);
     }
 
-    public static void Validate(Cliente cliente, AbstractValidator<Cliente> validator)
+    private static void Validate(Cliente cliente, IValidator<Cliente> validator)
+    {
+        if (cliente == null)
+            throw new Exception("Registro não detectado!");
+        
+        ValidateBusiness(cliente, validator);
+        ValidateModel(cliente);
+    }
+
+    private static void ValidateBusiness(Cliente cliente, IValidator<Cliente> validator)
+    {
+        validator.ValidateAndThrow(cliente);
+    }
+
+    private static void ValidateModel(Cliente cliente)
+    {
+        var validationContext = new ValidationContext(cliente);
+        var validationResults = new List<ValidationResult>();
+        var isValid = Validator.TryValidateObject(cliente, validationContext, validationResults, true);
+        if (!isValid)
         {
-            if (cliente == null)
-                throw new Exception("Registros não detectados!");
-
-            validator.ValidateAndThrow(cliente);
-          
+            throw new ValidationException(validationResults.ToString());
         }
-
+    }
 }

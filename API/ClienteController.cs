@@ -39,7 +39,10 @@ public class ClientesController(IMapper mapper, IClienteService service) : Contr
             var criado = await _service.Create(cliente);
             var uri = Url.Action("GetCliente");
             return Created(uri, new {Id = criado.Id});
-        } catch (Exception e) when (e is ValidationException || e is FluentValidation.ValidationException){
+        } catch (Exception e) 
+            when 
+                (e is ValidationException || 
+                 e is FluentValidation.ValidationException){
             return BadRequest(e.Message);
         }
         
