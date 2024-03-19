@@ -25,7 +25,7 @@
       "url": "_framework\/icudt_no_CJK.dat"
     },
     {
-      "hash": "sha256-g\/I3MgJ50N4Antf4WXqA94AfSvEQkkp+Jko8ABHEAPg=",
+      "hash": "sha256-BmwvonlSd7+xuBHN+P010QKAypOr5ePGd9Ruj8rOouY=",
       "url": "_framework\/blazor.boot.json"
     },
     {
@@ -33,11 +33,11 @@
       "url": "_framework\/dotnet.native.8.0.3.jge3qzchzb.js"
     },
     {
-      "hash": "sha256-RWnUJDmJSzQsOBhRGzCkBL\/f8dFWc9FUNPBEHCLGMrY=",
+      "hash": "sha256-qkxoutezw05t3EV9Y6SwXSH0xq1uqmL8HJLbNB03mmc=",
       "url": "_framework\/dotnet.native.wasm"
     },
     {
-      "hash": "sha256-Y9cuaN2dcSOe3uTsE4YVTuxvm\/QK5j4b7crDjHRQcYg=",
+      "hash": "sha256-Q532W5DWO864JlgCAdROd+29uDBCOHHm7eSsSNUgxBU=",
       "url": "_framework\/Application.wasm"
     },
     {
@@ -45,11 +45,11 @@
       "url": "_framework\/AutoMapper.wasm"
     },
     {
-      "hash": "sha256-dAPWpT80XVFuzIL2ttlzWRIjmjSOoeO1I84CDx\/F2nM=",
+      "hash": "sha256-BSUxzh36J\/PlutBkJe3RSLTz653A6XVd9tiV1dSEpRo=",
       "url": "_framework\/ClientBlazor.wasm"
     },
     {
-      "hash": "sha256-3qte88g7GTCBni5dNQCRdiRTUZpOcrnDHEzpYtW+Ei4=",
+      "hash": "sha256-6cPSyzADpL5ik\/SGvSkq9SOqDpcfJLGzCePbTlUhXF8=",
       "url": "_framework\/Domain.wasm"
     },
     {
@@ -57,7 +57,7 @@
       "url": "_framework\/FluentValidation.wasm"
     },
     {
-      "hash": "sha256-ZEhDJbSD\/t7SnimOM3l0TFGx\/1CPXYSUxIj4iqKNP1Q=",
+      "hash": "sha256-OMIStvGKl6pYdkOA8Zyav9XI16VqIsc3PWHyJ79s20c=",
       "url": "_framework\/Infra.wasm"
     },
     {
@@ -293,7 +293,7 @@
       "url": "_framework\/System.ObjectModel.wasm"
     },
     {
-      "hash": "sha256-3Z\/B54v31sCdnQjfZPFdwnBLTCkG1vtvvTPLTYsfdRs=",
+      "hash": "sha256-nZMHk4RA72gre55wlAURdgGrHXYiFB9vWSK0H+U5s5g=",
       "url": "_framework\/System.Private.CoreLib.wasm"
     },
     {
@@ -409,5 +409,5 @@
       "url": "sample-data\/weather.json"
     }
   ],
-  "version": "yjJ9JI6r"
+  "version": "qQj\/\/Vdg"
 };
