@@ -7,7 +7,7 @@ namespace Infra.Configuration;
 
 public static class DependencyInjectionConfig
 {
-        public static IServiceCollection GetInfraServices(this IServiceCollection services, IConfiguration configuration)
+        public static IServiceCollection AddInfraServices(this IServiceCollection services, IConfiguration configuration)
         {
             services.AddDbContext<SeradDbContext>(options =>
 {

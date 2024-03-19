@@ -6,8 +6,8 @@ using Infra.Configuration;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.GetInfraServices(builder.Configuration);
-builder.Services.GetApplicationServices(builder.Configuration);
+builder.Services.AddInfraServices(builder.Configuration);
+builder.Services.AddApplicationServices();
 builder.Services.AddAutoMapper(typeof(ClienteProfile), typeof(EnderecoProfile));
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();

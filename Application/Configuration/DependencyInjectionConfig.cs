@@ -11,7 +11,7 @@ namespace Application.Configuration;
 
 public static class DependencyInjectionConfig
 {
-        public static IServiceCollection GetApplicationServices(this IServiceCollection services, IConfiguration configuration)
+        public static IServiceCollection AddApplicationServices(this IServiceCollection services)
         {
 
             /* Cliente */
