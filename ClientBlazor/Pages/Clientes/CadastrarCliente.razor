@@ -18,7 +18,7 @@
             }
         </InputSelect>
     </div>
-    <div class="form-group mb-3">
+    <div class="form-group mb-3 ">
         <label for="Nome">Nome:</label>
         <InputText id="Nome" @bind-Value="clienteInputModel.Nome" class="form-control"/>
         <ValidationMessage For="@(() => clienteInputModel.Nome)"/>
@@ -64,8 +64,6 @@
             return;
         }
 
-        failMessage = response.StatusCode.ToString();
-
-
+        failMessage = await response.Content.ReadAsStringAsync();
     }
 }

@@ -17,7 +17,7 @@ public class ClienteValidator : AbstractValidator<Cliente>
         _context = context;
 
         RuleFor(c => c)
-            .Must(ClienteNãoExiste)
+            .Must(c => !ClienteExiste(c))
             .WithMessage("Cliente já cadastrado.");;
 
         When(c => c.Tipo == TipoCliente.Física, () => {
@@ -43,17 +43,13 @@ public class ClienteValidator : AbstractValidator<Cliente>
 
     private static bool CnpjValido(string cnpj)
     {
-        var a = DocumentoUtils.ValidarCnpj(cnpj);
-        return a;
+        return DocumentoUtils.ValidarCnpj(cnpj);
     }
 
-    private bool ClienteNãoExiste(Cliente cliente)
+    private bool ClienteExiste(Cliente cliente)
     {
-        var clienteExistente = _context.Clientes.ToList()
-        .Where(c => DocumentoUtils.RemoverPontuacaoDocumento(c) == DocumentoUtils.RemoverPontuacaoDocumento(cliente))
-        .FirstOrDefault(new Cliente());
-
-        if (clienteExistente.Equals(new Cliente())) return true;
+        var clienteExiste = _context.Clientes.ToList().Exists(c => DocumentoUtils.RemoverPontuacaoDocumento(c) == DocumentoUtils.RemoverPontuacaoDocumento(cliente));
+        if (clienteExiste) return true;
         return false;
     }
 }
