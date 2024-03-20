@@ -89,7 +89,9 @@ public class ClienteService(IMapper mapper, SeradDbContext context, AbstractVali
         var isValid = Validator.TryValidateObject(cliente, validationContext, validationResults, true);
         if (!isValid)
         {
-            throw new ValidationException(validationResults.ToString());
+            var errorText = "";
+            validationResults.ForEach(r => errorText += r.ErrorMessage);
+            throw new ValidationException(errorText);
         }
     }
 }

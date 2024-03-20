@@ -10,42 +10,80 @@
     <div class="text-danger">@failMessage</div>
     <DataAnnotationsValidator />
     <div class="form-group mb-3">
-        <label for="Tipo">Tipo de Cliente:</label>
-        <InputSelect @bind-Value="clienteInputModel.Tipo" class="form-control">
-            @foreach (var tipo in Enum.GetValues(typeof(TipoCliente)))
+        <MudSelect 
+        @bind-Value="clienteInputModel.Tipo" 
+        Label="Tipo de Cliente" 
+        AdornmentColor="Color.Secondary"
+        Variant="Variant.Filled"
+        >
+            @foreach (TipoCliente item in Enum.GetValues(typeof(TipoCliente)))
             {
-                <option value="@tipo">Pessoa @tipo</option>
+                <MudSelectItem Value="@item">Pessoa @item</MudSelectItem>
             }
-        </InputSelect>
+        </MudSelect>
     </div>
-    <div class="form-group mb-3 ">
-        <label for="Nome">Nome:</label>
-        <InputText id="Nome" @bind-Value="clienteInputModel.Nome" class="form-control"/>
-        <ValidationMessage For="@(() => clienteInputModel.Nome)"/>
-    </div>
+    @if (clienteInputModel.Tipo == TipoCliente.Jurídica)
+    {
+        <div class="form-group mb-3 ">
+            <MudTextField  Label="Razão social" Variant="Variant.Filled" @bind-Value="clienteInputModel.Nome"  class="form-control">
+            </MudTextField>
+            <ValidationMessage For="@(() => clienteInputModel.Nome)"/>
+        </div>
+        
+        <div class="form-group mb-3">
+            <MudTextField Mask="@CnpjMask"  Label="CNPJ" Variant="Variant.Filled" @bind-Value="clienteInputModel.Documento"  class="form-control">
+            </MudTextField>
+            <ValidationMessage For="@(() => clienteInputModel.Documento)"/>
+        </div>
+    }
+    else
+    {
+        <div class="form-group mb-3 ">
+            <MudTextField  Label="Nome" Variant="Variant.Filled" id="Nome" @bind-Value="clienteInputModel.Nome" class="form-control">
+            </MudTextField>
+            <ValidationMessage For="@(() => clienteInputModel.Nome)"/>
+        </div>
+        
+        <div class="form-group mb-3">
+            <MudTextField  Label="CPF" Variant="Variant.Filled" id="CPF" @bind-Value="clienteInputModel.Documento" class="form-control" Mask="@CpfMask">
+            </MudTextField>
+            <ValidationMessage For="@(() => clienteInputModel.Documento)"/>
+        </div>
+    }
     <div class="form-group mb-3">
-        <label for="Representante">Representante:</label>
-        <InputText id="Representante" @bind-Value="clienteInputModel.Representante" class="form-control"/>
+        <MudTextField  Label="Nome Representante" Variant="Variant.Filled" id="Representante" @bind-Value="clienteInputModel.Representante" class="form-control">
+        </MudTextField>
         <ValidationMessage For="@(() => clienteInputModel.Representante)"/>
     </div>
     <div class="form-group mb-3">
-        <label for="Email">Email:</label>
-        <InputText id="Email" @bind-Value="clienteInputModel.Email" class="form-control"/>
+        <MudTextField  Mask="@emailMask" Label="E-mail" Variant="Variant.Filled" id="Email" @bind-Value="clienteInputModel.Email" class="form-control">
+        </MudTextField>
+        <p>@clienteInputModel.Email</p>
         <ValidationMessage For="@(() => clienteInputModel.Email)"/>
     </div>
     <div class="form-group mb-3">
-        <label for="Telefone">Telefone:</label>
-        <InputText id="Telefone" @bind-Value="clienteInputModel.Telefone" class="form-control"/>
-        <ValidationMessage For="@(() => clienteInputModel.Telefone)"/>
-    </div>
-    <div class="form-group mb-3">
-        <label for="Documento">Documento:</label>
-        <InputText id="Documento" @bind-Value="clienteInputModel.Documento" class="form-control"/>
-        <ValidationMessage For="@(() => clienteInputModel.Documento)"/>
+        <MudTextField  Label="Telefone" Mask="@TelefoneMask" Variant="Variant.Filled" id="Telefone" @bind-Value="clienteInputModel.Telefone" class="form-control">
+        </MudTextField>
+        <ValidationMessage For="@(() => clienteInputModel.Telefone)"/> 
     </div>
 
-    <button type="submit" class="btn btn-primary mt-5">Salvar</button>
+    <button class="btn btn-primary mt-5" disabled="@_processing">
+        @if (_processing)
+        {
+            <div class="d-flex justify-content-around">
+                <div class="ms-1 me-2">Enviando</div>
+                <MudProgressCircular Size="Size.Small" Indeterminate="true"/>
+            </div>
+        }
+        else
+        {
+            <div class="d-inline-block">Salvar</div>
+        }
+    </button>
+    
 </EditForm>
+
+
 
 
 
@@ -53,10 +91,28 @@
     private CreateClienteInputModel clienteInputModel = new CreateClienteInputModel();
     private string? sucessMessage = "";
     private string? failMessage = "";
+    private bool _processing = false;
+    private PatternMask TelefoneMask = new PatternMask("(00) 00000-0000") {
+            CleanDelimiters = true
+    };
+
+    private PatternMask CpfMask = new PatternMask("000.000.000-00") {
+            CleanDelimiters = true
+    };
+
+    private PatternMask CnpjMask = new PatternMask("00.000.000/0000-00") {
+            CleanDelimiters = true
+    };
+
+    public IMask emailMask = RegexMask.Email();
+
+
     private async Task HandleSubmit()
     {
+        _processing = true;
         var client = HttpClientFactory.CreateClient("ApiSerad"); 
         var response = await client.PostAsJsonAsync("/api/Clientes", clienteInputModel);
+        _processing = false;
         if (response.IsSuccessStatusCode)
         {
             clienteInputModel = new CreateClienteInputModel();
@@ -66,4 +122,5 @@
 
         failMessage = await response.Content.ReadAsStringAsync();
     }
+
 }

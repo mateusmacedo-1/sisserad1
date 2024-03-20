@@ -3,48 +3,50 @@
 @using System.Text.Json
 @using Application.ViewModels
 @inject IHttpClientFactory HttpClientFactory
+@using System.Net.Http.Json
+
 
 <PageTitle>Clientes</PageTitle>
 
 
 <div class="d-flex justify-content-between">
-    <h3>Clientes</h3>
+    <h3></h3>
     <NavLink class="nav-link"href="clientes/cadastrar">
         <button class="btn btn-primary"> Cadastrar</button>
     </NavLink>
-    
 </div>
 
 
-@if (clientes == null)
+@if (ClientesData == null)
 {
     <p>
         <em>Loading....</em>
     </p>
 }
-else if (clientes.Length != 0)
+else if (ClientesData.Length != 0)
 {
-    <table class="table">
-        <thead>
-        <tr>
-            <th>Nome</th>
-            <th>Email</th>
-            <th>Tipo</th>
-            <th>Documento</th>
-        </tr>
-        </thead>
-        <tbody>
-        @foreach (var cliente in clientes)
-        {
-            <tr>
-                <td>@cliente.Nome</td>
-                <td>@cliente.Email</td>
-                <td>@cliente.Tipo</td>
-                <td>@cliente.Documento</td>
-            </tr>
-        }
-        </tbody>
-    </table>
+    <MudTable Items="@ClientesData" Hover="@true" Bordered="@true" Striped="@true" Filter="new Func<ClienteViewModel,bool>(FilterFunc1)" @bind-SelectedItem="selectedItem1">
+        <ToolBarContent>
+            <MudText Typo="Typo.h6">Clientes</MudText>
+            <MudSpacer />
+            <MudTextField @bind-Value="searchString1" Placeholder="Pesquisar" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-0"></MudTextField>
+        </ToolBarContent>
+        <HeaderContent>
+            <MudTh>Nome</MudTh>
+            <MudTh>E-mail</MudTh>
+            <MudTh>Tipo</MudTh>
+            <MudTh>Documento</MudTh>
+        </HeaderContent>
+        <RowTemplate>
+            <MudTd DataLabel="Nome">@context.Nome</MudTd>
+            <MudTd DataLabel="Email">@context.Email</MudTd>
+            <MudTd DataLabel="Tipo">Pessoa @context.Tipo</MudTd>
+            <MudTd DataLabel="Documento">@context.DocumentoFormatado</MudTd>
+        </RowTemplate>
+        <PagerContent>
+            <MudTablePager />
+        </PagerContent>
+    </MudTable>
 }
 else
 {
@@ -55,8 +57,15 @@ else
 
 
 @code {
-    private ClienteViewModel[] clientes;
+    private ClienteViewModel[] ClientesData;
+    private string searchString1 = "";
+    private ClienteViewModel selectedItem1 = null;
+    private bool FilterFunc1(ClienteViewModel cliente) => FilterFunc(cliente, searchString1);
 
+    private bool FilterFunc(ClienteViewModel cliente, string searchString)
+    {
+        return cliente.SearchString(searchString);
+    }
     protected override async Task OnInitializedAsync()
     {
         var client = HttpClientFactory.CreateClient("ApiSerad"); 
@@ -68,7 +77,7 @@ else
                 PropertyNameCaseInsensitive = true
             };
             var jsonString = await response.Content.ReadAsStringAsync();
-            clientes = JsonSerializer.Deserialize<ClienteViewModel[]>(jsonString, options);
+            ClientesData = JsonSerializer.Deserialize<ClienteViewModel[]>(jsonString, options);
         }
 
     }

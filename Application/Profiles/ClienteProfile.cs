@@ -9,13 +9,8 @@ public class ClienteProfile : Profile
 {
     public ClienteProfile()
     {
-        CreateMap<ClienteDetailsViewModel, Cliente>()
-            .ReverseMap();
-        CreateMap<ClienteViewModel, Cliente>()
-            .ForMember(c => c.Tipo, 
-                opt => opt.MapFrom(src => src.Tipo.ToString()))
-            .ReverseMap();
-        CreateMap<CreateClienteInputModel, Cliente>()
-            .ReverseMap();
+        CreateMap<Cliente, ClienteDetailsViewModel>();
+        CreateMap<Cliente, ClienteViewModel>();
+        CreateMap<CreateClienteInputModel, Cliente>();
     }
 }
