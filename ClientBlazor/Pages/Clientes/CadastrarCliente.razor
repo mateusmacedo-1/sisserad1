@@ -18,11 +18,37 @@
             }
         </InputSelect>
     </div>
-    <div class="form-group mb-3 ">
-        <label for="Nome">Nome:</label>
-        <InputText id="Nome" @bind-Value="clienteInputModel.Nome" class="form-control"/>
-        <ValidationMessage For="@(() => clienteInputModel.Nome)"/>
-    </div>
+    @if (clienteInputModel.Tipo == TipoCliente.Jurídica)
+    {
+        <div class="form-group mb-3 ">
+            <label for="Nome">Razão social:</label>
+            <InputText id="Nome" @bind-Value="clienteInputModel.Nome" class="form-control"/>
+            <ValidationMessage For="@(() => clienteInputModel.Nome)"/>
+        </div>
+        
+        <div class="form-group mb-3">
+            <label for="CNPJ">CNPJ:</label>
+            <MudTextField Label="Filled" Variant="Variant.Filled" @bind-Value="clienteInputModel.Documento"  class="form-control">
+            </MudTextField>
+            <ValidationMessage For="@(() => clienteInputModel.Documento)"/>
+        </div>
+    }
+    else
+    {
+        <div class="form-group mb-3 ">
+            <label for="Nome">Nome:</label>
+            <MudTextField Label="Filled" Variant="Variant.Filled" id="Nome" @bind-Value="clienteInputModel.Nome" class="form-control">
+            </MudTextField>
+            <ValidationMessage For="@(() => clienteInputModel.Nome)"/>
+        </div>
+        
+        <div class="form-group mb-3">
+            <label for="CPF">CPF:</label>
+            <MudTextField Label="Filled" Variant="Variant.Filled" id="Nome" @bind-Value="clienteInputModel.Documento"  class="form-control">
+            </MudTextField>
+            <ValidationMessage For="@(() => clienteInputModel.Documento)"/>
+        </div>
+    }
     <div class="form-group mb-3">
         <label for="Representante">Representante:</label>
         <InputText id="Representante" @bind-Value="clienteInputModel.Representante" class="form-control"/>
@@ -35,14 +61,11 @@
     </div>
     <div class="form-group mb-3">
         <label for="Telefone">Telefone:</label>
-        <InputText id="Telefone" @bind-Value="clienteInputModel.Telefone" class="form-control"/>
+        <MudTextField Label="Filled" Variant="Variant.Filled" id="Nome" @bind-Value="clienteInputModel.Telefone" class="form-control">
+        </MudTextField>
         <ValidationMessage For="@(() => clienteInputModel.Telefone)"/>
     </div>
-    <div class="form-group mb-3">
-        <label for="Documento">Documento:</label>
-        <InputText id="Documento" @bind-Value="clienteInputModel.Documento" class="form-control"/>
-        <ValidationMessage For="@(() => clienteInputModel.Documento)"/>
-    </div>
+
 
     <button type="submit" class="btn btn-primary mt-5">Salvar</button>
 </EditForm>
