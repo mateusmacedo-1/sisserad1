@@ -1,7 +1,6 @@
-﻿using Application.ViewModels;
-using Domain.Enums;
+﻿using Domain.Enums;
 
-namespace Application.InputModels;
+namespace Domain.InputModels;
 
 public class UpdateClienteInputModel
 {
