@@ -12,5 +12,9 @@ public class EnderecoProfile : Profile
         CreateMap<Endereco, EnderecoViewModel>()
             .ReverseMap();
         CreateMap<EnderecoInputModel, Endereco>();
+        CreateMap<EnderecoInputModel, List<Endereco>>()
+            .ConvertUsing(src => new List<Endereco> {
+                    new() {Cep = src.Cep, Complemento = src.Complemento, Logradouro = src.Logradouro, Numero = src.Numero, Id = src.Numero}
+                });
     }
 }

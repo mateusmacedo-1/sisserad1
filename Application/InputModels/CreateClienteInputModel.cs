@@ -22,7 +22,9 @@ public class CreateClienteInputModel
     [Phone]
     [Required]
     public string? Telefone { get;  set; }
-    public List<EnderecoInputModel> Enderecos { get; set; } = [];
+
+    [Required]
+    public EnderecoInputModel? Endereco { get; set; }
     
     [Required]
     public string? Documento { get;  set; }
