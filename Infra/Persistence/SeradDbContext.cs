@@ -17,7 +17,7 @@ public class SeradDbContext : DbContext
         modelBuilder
             .Entity<Cliente>()
             .HasMany(c => c.Enderecos)
-            .WithOne()
+            .WithOne(e => e.Cliente)
             .IsRequired();
     }
     

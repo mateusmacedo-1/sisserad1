@@ -14,10 +14,11 @@ using ValidationException = System.ComponentModel.DataAnnotations.ValidationExce
 
 namespace Application.Services;
 
-public class ClienteService(IMapper mapper, SeradDbContext context, AbstractValidator<Cliente> validator) : IClienteService
+public class ClienteService(IMapper mapper, SeradDbContext context, AbstractValidator<Cliente> validator, IEnderecoService enderecoService) : IClienteService
 {
     
     private readonly SeradDbContext _context = context;
+    private readonly IEnderecoService _enderecoService = enderecoService;
     private readonly AbstractValidator<Cliente> _validator = validator;
     private readonly IMapper _mapper = mapper;
     
@@ -42,12 +43,28 @@ public class ClienteService(IMapper mapper, SeradDbContext context, AbstractVali
     }
 
     public async Task<ClienteViewModel> Create(CreateClienteInputModel inputModel)
+    
     {
-        var cliente = _mapper.Map<Cliente>(inputModel);
-        Validate(cliente, _validator);
-        var criado = _context.Clientes.Add(cliente);
-        await _context.SaveChangesAsync();
-        return _mapper.Map<ClienteViewModel>(criado.Entity);
+        using var transaction = await _context.Database.BeginTransactionAsync();
+        try
+        {
+            var cliente = _mapper.Map<Cliente>(inputModel);
+            Validate(cliente, _validator);
+            var criado = _context.Clientes.Add(cliente);
+            await _context.SaveChangesAsync();
+            if (inputModel.Endereco != null)
+            {
+                await _enderecoService.Create(inputModel.Endereco, criado.Entity.Id);
+            }
+            await transaction.CommitAsync();
+            return _mapper.Map<ClienteViewModel>(criado.Entity);
+        }
+        catch (Exception)
+        {
+            await transaction.RollbackAsync();
+            throw;
+        }
+
     }
 
     public async Task<ClienteViewModel?> Update(UpdateClienteInputModel inputModel)
@@ -90,7 +107,7 @@ public class ClienteService(IMapper mapper, SeradDbContext context, AbstractVali
         if (!isValid)
         {
             var errorText = "";
-            validationResults.ForEach(r => errorText += r.ErrorMessage);
+            validationResults.ForEach(r => errorText += "\n" + r.ErrorMessage);
             throw new ValidationException(errorText);
         }
     }
