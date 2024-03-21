@@ -1,6 +1,6 @@
-﻿using Application.InputModels;
-using Application.ViewModels;
+﻿using Application.ViewModels;
 using AutoMapper;
+using Domain.InputModels;
 using Domain.Models;
 
 namespace Application.Profiles;

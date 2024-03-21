@@ -1,15 +1,12 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using Application.Configuration;
-using Application.InputModels;
 using Application.Services.Interfaces;
-using Application.Validators;
 using Application.ViewModels;
 using AutoMapper;
+using Domain.InputModels;
 using Domain.Models;
 using FluentValidation;
 using Infra.Persistence;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
 using ValidationException = System.ComponentModel.DataAnnotations.ValidationException;
 
 namespace Application.Services;
@@ -111,4 +108,5 @@ public class ClienteService(IMapper mapper, SeradDbContext context, AbstractVali
             throw new ValidationException(errorText);
         }
     }
+
 }

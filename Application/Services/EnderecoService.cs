@@ -1,8 +1,8 @@
 using System.ComponentModel.DataAnnotations;
-using Application.InputModels;
 using Application.Services.Interfaces;
 using Application.ViewModels;
 using AutoMapper;
+using Domain.InputModels;
 using Domain.Models;
 using FluentValidation;
 using Infra.Persistence;
@@ -92,5 +92,6 @@ public class EnderecoService(IMapper mapper, SeradDbContext context, AbstractVal
             throw new ValidationException(errorText);
         }
     }
+
 
 }

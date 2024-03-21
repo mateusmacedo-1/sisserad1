@@ -1,4 +1,4 @@
-﻿namespace Application.InputModels;
+﻿namespace Domain.InputModels;
 
 public class EnderecoInputModel
 {
