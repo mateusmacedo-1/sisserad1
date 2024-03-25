@@ -66,15 +66,15 @@ jobs:
 
       - name: Build and publish API image
         run: |
-          docker build -t seradapi -f Dockerfile.back .
+          docker build -t sisseradapi -f Dockerfile.back .
           docker tag seradapi mateus314/seradapi:latest
           docker push mateus314/seradapi:latest
 
       - name: Build and publish Front image
         run: |
-            docker build -t front-blazor -f Dockerfile.front .
-            docker tag front-blazor mateus314/seradapi:latest
-            docker push mateus314/front-blazor:latest
+          docker build -t sisseradfront -f Dockerfile.front .
+          docker tag sisseradfront mateus314/sisseradfront:latest
+          docker push mateus314/sisseradfront:latest
 
 
   
