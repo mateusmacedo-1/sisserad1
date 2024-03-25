@@ -68,7 +68,7 @@ jobs:
         run: |
           docker build -t sisseradapi -f Dockerfile.back .
           docker tag sisseradapi mateus314/sisseradapi:latest
-          docker push mateus314/sisseradapi3:latest
+          docker push mateus314/sisseradapi:latest
 
       - name: Build and publish Front image
         run: |
