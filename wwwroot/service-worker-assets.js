@@ -57,7 +57,7 @@
       "url": "_framework\/icudt_no_CJK.dat"
     },
     {
-      "hash": "sha256-kpk7NWtECxA\/YRAbYBaqg5+GKWQdzD2PPa3ZVo6OAPY=",
+      "hash": "sha256-rAi2pNFE5wfzOycppYIc4bsVbTHaeAnfmaTXGrJIGUc=",
       "url": "_framework\/blazor.boot.json"
     },
     {
@@ -69,11 +69,11 @@
       "url": "_framework\/dotnet.native.wasm"
     },
     {
-      "hash": "sha256-Bpb8MQsWL12Hy9+kAtta0xF3MWaGE5ZN2iVNXmiS+xI=",
+      "hash": "sha256-5fYUjpyPrLe0yeXnD6ZhdtywQf7tZ\/35iYOYeiJJLmY=",
       "url": "_framework\/ClientBlazor.wasm"
     },
     {
-      "hash": "sha256-LQTn7UdmflCn2KXDIk0auKCLs05gn1U01Ce7pge178E=",
+      "hash": "sha256-wVfk28j8hpTv4NrCwNOEp9+1q0K43MLvo9gn\/JEJYPk=",
       "url": "_framework\/Domain.wasm"
     },
     {
@@ -281,5 +281,5 @@
       "url": "_content\/MudBlazor\/MudBlazor.min.js"
     }
   ],
-  "version": "DqIm3MRh"
+  "version": "M4kXqtzq"
 };
