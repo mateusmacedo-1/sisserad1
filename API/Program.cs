@@ -1,7 +1,4 @@
 using Application.Configuration;
-using Application.Profiles;
-using Application.Services;
-using Application.Services.Interfaces;
 using Infra.Configuration;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -17,8 +14,7 @@ builder.Services.AddCors(options =>
     options.AddPolicy(name: "front-end",
         policy =>
         {
-            policy.WithOrigins("https://sisserad1.onrender.com").AllowAnyMethod().AllowAnyHeader();
-            policy.WithOrigins("http://localhost:5058").AllowAnyMethod().AllowAnyHeader();
+            policy.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader();
         });
 });
 

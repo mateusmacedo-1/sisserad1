@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using Application.InputModels;
+using Domain.InputModels;
 using Application.Services.Interfaces;
-using Application.ViewModels;
+using Domain.ViewModels;
 using AutoMapper;
 using Domain.Models;
 using Microsoft.AspNetCore.Mvc;

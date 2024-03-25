@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 using Application.Services.Interfaces;
-using Application.ViewModels;
+using Domain.ViewModels;
 using AutoMapper;
 using Domain.InputModels;
 using Domain.Models;

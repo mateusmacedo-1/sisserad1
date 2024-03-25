@@ -1,5 +1,5 @@
 ﻿
-using Application.ViewModels;
+using Domain.ViewModels;
 using AutoMapper;
 using Domain.InputModels;
 using Domain.Models;

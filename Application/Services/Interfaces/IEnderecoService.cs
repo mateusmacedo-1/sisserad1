@@ -1,5 +1,5 @@
 
-using Application.ViewModels;
+using Domain.ViewModels;
 using Domain.InputModels;
 
 namespace Application.Services.Interfaces;

@@ -1,7 +1,7 @@
 ﻿using System.Text.Json.Serialization;
 using Domain.Enums;
 
-namespace Application.ViewModels;
+namespace Domain.ViewModels;
 
 public class ClienteViewModel
 {
