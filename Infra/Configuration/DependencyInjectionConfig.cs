@@ -9,9 +9,13 @@ public static class DependencyInjectionConfig
 {
         public static IServiceCollection AddInfraServices(this IServiceCollection services, IConfiguration configuration)
         {
+            var con = Environment.GetEnvironmentVariable("ConnectionString");
+            if (con == null) {
+                throw new Exception("ConnectionString não encontrada");
+            }
             services.AddDbContext<SeradDbContext>(options =>
 {
-                options.UseNpgsql(configuration.GetConnectionString("DefaultConnection"));
+                options.UseNpgsql(con);
             });
             return services;
         }
