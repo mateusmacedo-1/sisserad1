@@ -1,7 +1,6 @@
-﻿using Application.InputModels;
-using Application.ViewModels;
-using Domain.Models;
-using FluentValidation;
+﻿using Domain.ViewModels;
+using Domain.InputModels;
+
 
 namespace Application.Services.Interfaces;
 

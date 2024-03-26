@@ -1,7 +1,8 @@
-﻿namespace Application.InputModels;
+﻿namespace Domain.InputModels;
 
 public class EnderecoInputModel
 {
+    public int? Id { get; set;}
     public string? Logradouro { get;  set; }
     public int? Numero { get;  set; }
     public string? Cep { get;  set; }

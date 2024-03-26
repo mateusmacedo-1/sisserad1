@@ -1,0 +1,15 @@
+FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
+WORKDIR /app
+COPY ["Domain/Domain.csproj", "Domain/"]
+COPY ["ClientBlazor/ClientBlazor.csproj", "ClientBlazor/"]
+
+RUN dotnet restore "ClientBlazor/ClientBlazor.csproj"
+COPY . ./
+RUN dotnet build "ClientBlazor/ClientBlazor.csproj"
+RUN dotnet publish "ClientBlazor/ClientBlazor.csproj" -c Release -o docs 
+
+FROM nginx:1.23.0-alpine
+WORKDIR "/src"
+EXPOSE 8080
+COPY  ["ClientBlazor/nginx.conf", "/etc/nginx/nginx.conf"]
+COPY --from=build /app/docs/wwwroot /usr/share/nginx/html

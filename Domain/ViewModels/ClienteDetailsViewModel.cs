@@ -1,7 +1,7 @@
 ﻿using Domain.Enums;
 using Domain.Models;
 
-namespace Application.ViewModels;
+namespace Domain.ViewModels;
 
 public class ClienteDetailsViewModel
 {
