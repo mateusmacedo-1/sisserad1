@@ -4,55 +4,10 @@ on:
   push:
     branches:
       - feature
-
-permissions: 
-  contents: write
-  pages: write
-  id-token: write
-
-concurrency: 
-  group: "pages"
-  cancel-in-progress: false
+      - release
 
 jobs:
-  compile-front:
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout code1
-        uses: actions/checkout@v4
-
-
-      - name: Setup .NET8
-        uses: actions/setup-dotnet@v3
-        with:
-          dotnet-version: 8.0.x
-      - name: Excluir pasta docs
-        run: rm -rf docs # pra poder gerar do 0 dps
-
-      - name: Install .NET Wasm Tools
-        run: dotnet workload install wasm-tools
-
-      - name: Restore Dependencies
-        run: dotnet restore
-
-      - name: build
-        run: dotnet build --no-restore
-      
-      - name: publish dotnet
-        run: dotnet publish ClientBlazor/ClientBlazor.csproj -c Release -o docs --nologo
-      
-      - name: Push docs
-        uses: s0/git-publish-subdir-action@develop
-        env:
-          REPO: self
-          BRANCH: feature-deploy # The branch name where you want to push the assets
-          FOLDER: docs # The directory where your assets are generated
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # GitHub will automatically add this - you don't need to bother getting a token
-          MESSAGE: "Build: ({sha}) {msg}" # The commit message
-
-
-  publish-docker-image:
+  publish-docker-images:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -67,14 +22,14 @@ jobs:
       - name: Build and publish API image
         run: |
           docker build -t sisseradapi -f Dockerfile.back .
-          docker tag sisseradapi mateus314/sisseradapi:latest
-          docker push mateus314/sisseradapi:latest
+          docker tag sisseradapi mateus314/sisseradapi:${{ github.ref }}
+          docker push mateus314/sisseradapi:${{ github.ref }}
 
       - name: Build and publish Front image
         run: |
           docker build -t sisseradfront -f Dockerfile.front .
-          docker tag sisseradfront mateus314/sisseradfront:latest
-          docker push mateus314/sisseradfront:latest
+          docker tag sisseradfront mateus314/sisseradfront:${{ github.ref }}
+          docker push mateus314/sisseradfront:${{ github.ref }}
 
 
   
