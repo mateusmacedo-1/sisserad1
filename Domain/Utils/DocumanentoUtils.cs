@@ -2,6 +2,7 @@ namespace Domain.Utils;
 
 using System.ComponentModel.DataAnnotations;
 using CpfCnpjLibrary;
+using Domain.Enums;
 using Domain.Models;
 
 public class DocumentoUtils
@@ -33,13 +34,33 @@ public class DocumentoUtils
             throw new ValidationException("Não foi possível validar o documento.");
         }
     }
-    public static string FormatarCpfSemPonto(string documento)
+    private static string FormatarCpfSemPonto(string documento)
     {
         return Cpf.FormatarSemPontuacao(documento);
     }
 
-        public static string FormatarCnpjSemPonto(string documento)
+    private static string FormatarCnpjSemPonto(string documento)
     {
         return Cnpj.FormatarSemPontuacao(documento);
+    }
+
+    static private string FormatarCPF(string cpf)
+    {
+        return Convert.ToUInt64(cpf).ToString(@"000\.000\.000\-00");
+    }
+
+    static private string FormatarCNPJ(string cnpj)
+    {
+        return Convert.ToUInt64(cnpj).ToString(@"00\.000\.000\/0000\-00");
+    }
+
+    static public string FormatarDocumento(string? documento, TipoCliente? tipo)
+    {   
+        return tipo switch
+        {
+            TipoCliente.Física => FormatarCPF(documento ?? ""),
+            TipoCliente.Jurídica => FormatarCNPJ(documento ?? ""),
+            _ => throw new Exception($" {tipo}: Tipo não reconhecido."),
+        };
     }
 }

@@ -17,13 +17,13 @@
 </div>
 
 
-@if (ClientesData == null)
+@if (loading == true)
 {
     <p>
         <em>Loading....</em>
     </p>
 }
-else if (ClientesData.Length != 0)
+else if (ClientesData != null && ClientesData.Length != 0)
 {
     <MudTable Items="@ClientesData" Hover="@true" Bordered="@true" Striped="@true" Filter="new Func<ClienteViewModel,bool>(FilterFunc1)" @bind-SelectedItem="selectedItem1">
         <ToolBarContent>
@@ -41,7 +41,7 @@ else if (ClientesData.Length != 0)
             <MudTd DataLabel="Nome">@context.Nome</MudTd>
             <MudTd DataLabel="Email">@context.Email</MudTd>
             <MudTd DataLabel="Tipo">Pessoa @context.Tipo</MudTd>
-            <MudTd DataLabel="Documento">@context.DocumentoFormatado</MudTd>
+            <MudTd DataLabel="Documento">@context.Documento</MudTd>
         </RowTemplate>
         <PagerContent>
             <MudTablePager />
@@ -55,11 +55,12 @@ else
     </p>
 }
 
-
 @code {
-    private ClienteViewModel[] ClientesData;
+
+    private bool loading = true;
+    private ClienteViewModel[]? ClientesData;
     private string searchString1 = "";
-    private ClienteViewModel selectedItem1 = null;
+    private ClienteViewModel? selectedItem1 = null;
     private bool FilterFunc1(ClienteViewModel cliente) => FilterFunc(cliente, searchString1);
 
     private bool FilterFunc(ClienteViewModel cliente, string searchString)
@@ -77,8 +78,11 @@ else
                 PropertyNameCaseInsensitive = true
             };
             var jsonString = await response.Content.ReadAsStringAsync();
-            ClientesData = JsonSerializer.Deserialize<ClienteViewModel[]>(jsonString, options);
+            
+            ClientesData = 
+                JsonSerializer.Deserialize<ClienteViewModel[]>(jsonString, options);
         }
+        loading = false;
 
     }
 

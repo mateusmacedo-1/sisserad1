@@ -10,8 +10,8 @@ builder.RootComponents.Add<HeadOutlet>("head::after");
 builder.Services.AddHttpClient("ApiSerad", client =>
 {
     // client.BaseAddress = new Uri("https://sisserad-api.onrender.com");
-    // client.BaseAddress = new Uri("http://localhost:8080");
-    client.BaseAddress = new Uri("https://seradapi-2a3iml76ea-rj.a.run.app");
+    client.BaseAddress = new Uri("http://localhost:8080");
+    // client.BaseAddress = new Uri("https://seradapi-2a3iml76ea-rj.a.run.app");
 });
 
 builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
