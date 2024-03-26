@@ -1,7 +1,8 @@
 ﻿using System.Text.Json.Serialization;
 using Domain.Enums;
+using Domain.Utils;
 
-namespace Application.ViewModels;
+namespace Domain.ViewModels;
 
 public class ClienteViewModel
 {
@@ -11,21 +12,10 @@ public class ClienteViewModel
     public string? Email { get; set; }
     public string? Telefone { get;  set; }
     public ICollection<EnderecoViewModel> Enderecos { get; set; } = [];
-
-
-    private string? documento;
-    public string? Documento 
-    {
-        get{ return documento; }
-        set {
-            documento = value;
-            FormatarDocumento();
-        } 
-    }
-    public string? DocumentoFormatado { get; set; }
+    public string? Documento { get; set; }
     
     [JsonConverter(typeof(JsonStringEnumConverter))]
-    public TipoCliente Tipo { get; set; }
+    public TipoCliente Tipo { get; init; }
 
     public bool SearchString(string? searchString){
         if (string.IsNullOrWhiteSpace(searchString))
@@ -37,28 +27,5 @@ public class ClienteViewModel
         if ($"{Telefone} {Email} {Documento}".Contains(searchString))
             return true;
         return false;
-    }
-
-
-    private void FormatarDocumento()
-    {
-        if (Tipo == TipoCliente.Física)
-        {
-            DocumentoFormatado = FormatarCPF(Documento);
-        }
-
-        else
-        {
-            DocumentoFormatado = FormatarCNPJ(Documento);
-        }
-    }
-    static string FormatarCPF(string cpf)
-    {
-        return Convert.ToUInt64(cpf).ToString(@"000\.000\.000\-00");
-    }
-
-    static string FormatarCNPJ(string cnpj)
-    {
-        return Convert.ToUInt64(cnpj).ToString(@"00\.000\.000\/0000\-00");
     }
 }

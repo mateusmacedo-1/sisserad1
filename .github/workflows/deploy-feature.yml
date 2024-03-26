@@ -1,87 +1,35 @@
-name: gh-pages-deploy-feature
+  name: gh-pages-deploy-feature
 
-on:
-  push:
-    branches:
-      - feature
-  pull_request:
+  on:
+    push:
       branches:
-      - feature
+        - feature
+        - release
 
-permissions: 
-  contents: write
-  pages: write
-  id-token: write
+  jobs:
+    publish-docker-images:
+      runs-on: ubuntu-latest
+      steps:
+        - name: Checkout code
+          uses: actions/checkout@v4
+          
+        - name: Login to Docker Hub
+          uses: docker/login-action@v3
+          with:
+            username: ${{ secrets.DOCKERHUB_USERNAME }}
+            password: ${{ secrets.DOCKERHUB_PASSWORD }}
 
-concurrency: 
-  group: "pages"
-  cancel-in-progress: false
+        - name: Build and publish API image
+          run: |
+            docker build -t sisseradapi -f Dockerfile.back .
+            docker tag sisseradapi mateus314/sisseradapi:$(basename ${{ github.ref }})
+            docker push mateus314/sisseradapi:$(basename ${{ github.ref }})
 
-jobs:
-  compile-front:
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout code1
-        uses: actions/checkout@v4
-
-
-      - name: Setup .NET8
-        uses: actions/setup-dotnet@v3
-        with:
-          dotnet-version: 8.0.x
-      - name: Excluir pasta docs
-        run: rm -rf docs # pra poder gerar do 0 dps
-
-      - name: Install .NET Wasm Tools
-        run: dotnet workload install wasm-tools
-
-      - name: Restore Dependencies
-        run: dotnet restore
-
-      - name: build
-        run: dotnet build --no-restore
-      
-      - name: publish dotnet
-        run: dotnet publish ClientBlazor/ClientBlazor.csproj -c Release -o docs --nologo
-      
-      - name: Push docs
-        uses: s0/git-publish-subdir-action@develop
-        env:
-          REPO: self
-          BRANCH: feature-deploy # The branch name where you want to push the assets
-          FOLDER: docs # The directory where your assets are generated
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # GitHub will automatically add this - you don't need to bother getting a token
-          MESSAGE: "Build: ({sha}) {msg}" # The commit message
+        - name: Build and publish Front image
+          run: |
+            docker build -t sisseradfront -f Dockerfile.front .
+            docker tag sisseradfront mateus314/sisseradfront:$(basename ${{ github.ref }})
+            docker push mateus314/sisseradfront:$(basename ${{ github.ref }})
 
 
-  publish-back-image:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-        
-      - name: Login to Docker Hub
-        uses: docker/login-action@v3
-        with:
-          username: ${{ secrets.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_PASSWORD }}
-
-      - name: Build and publish API image
-        run: |
-          docker build -t seradapi .
-          docker tag seradapi mateus314/seradapi:latest
-          docker push mateus314/seradapi:latest
-  deploy-webhook:
-    needs: publish-back-image
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-      - name: Invoke deployment hook
-        env:
-          deploy_url: ${{ secrets.RENDER_DEPLOY_HOOK_URL }}
-        run: |
-          curl "$deploy_url"
-
-  
+    

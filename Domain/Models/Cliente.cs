@@ -11,7 +11,7 @@ namespace Domain.Models
         }
 
         // Seu padrão de construtor com argumentos
-        public Cliente(int? id, string? nome, string? email, string? telefone, TipoCliente? tipo, string? documento, string? representante)
+        public Cliente(int id, string? nome, string? email, string? telefone, TipoCliente? tipo, string? documento, string? representante)
         {
             Id = id;
             Nome = nome;
@@ -23,7 +23,7 @@ namespace Domain.Models
         }
         
         
-        public int? Id { get; private set; }
+        public int Id { get; private set; }
 
         [Required(ErrorMessage = "O nome é obrigatório.")]
         [StringLength(250, ErrorMessage = "O nome deve ter no máximo 250 caractéres.")]

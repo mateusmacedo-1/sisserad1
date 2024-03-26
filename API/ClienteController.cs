@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using Application.InputModels;
+using Domain.InputModels;
 using Application.Services.Interfaces;
-using Application.ViewModels;
+using Domain.ViewModels;
 using AutoMapper;
 using Domain.Models;
 using Microsoft.AspNetCore.Mvc;
@@ -11,9 +11,10 @@ namespace API;
 
 [Route("api/[controller]")]
 [ApiController]
-public class ClientesController(IMapper mapper, IClienteService service) : ControllerBase
+public class ClientesController(IMapper mapper, IClienteService service, IEnderecoService enderecoService) : ControllerBase
 {
     private readonly IClienteService _service = service;
+    private readonly IEnderecoService _enderecoService = enderecoService;
     private readonly IMapper _mapper = mapper;
 
     [HttpGet]
