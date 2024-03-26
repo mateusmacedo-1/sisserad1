@@ -44,17 +44,17 @@ public class DocumentoUtils
         return Cnpj.FormatarSemPontuacao(documento);
     }
 
-    static private string FormatarCPF(string cpf)
+    private static string FormatarCPF(string cpf)
     {
         return Convert.ToUInt64(cpf).ToString(@"000\.000\.000\-00");
     }
 
-    static private string FormatarCNPJ(string cnpj)
+    private static string FormatarCNPJ(string cnpj)
     {
         return Convert.ToUInt64(cnpj).ToString(@"00\.000\.000\/0000\-00");
     }
 
-    static public string FormatarDocumento(string? documento, TipoCliente? tipo)
+    public static string FormatarDocumento(string? documento, TipoCliente? tipo)
     {   
         return tipo switch
         {

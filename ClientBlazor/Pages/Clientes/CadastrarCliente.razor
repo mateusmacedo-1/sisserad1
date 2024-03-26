@@ -4,13 +4,15 @@
 @using Validators
 @inject IHttpClientFactory HttpClientFactory
 @using MudBlazor
+@using System.Net
+@using System.Text.Json
+@using System.Net.Http.Json
 
 <h3>Cadastrar Cliente</h3>
 <MudCard>
     <MudText>@sucessMessage</MudText>
     <MudText>@failMessage</MudText>
     <MudForm Model="@clienteInputModel" Validation="@(clienteValidator.ValidateValue)">
-        <MudText Align="Align.Left" Class="mb-n4">Dados</MudText>
         <MudCardContent>
             <MudSelect 
                 @bind-Value="clienteInputModel.Tipo" 
@@ -35,16 +37,14 @@
             }
             <MudTextField  Label="Nome Representante" Variant="Variant.Filled" id="Representante" @bind-Value="clienteInputModel.Representante" class="form-control" For="(() => clienteInputModel.Representante)" Immediate="true"/>
         </MudCardContent>
-
-        <MudText Align="Align.Left" Class="mb-n4">Endereço</MudText>
+        
         <MudCardContent>
-                <MudTextField Label="CEP" Variant="Variant.Filled" id="CEP" @bind-Value="clienteInputModel.Endereco.Cep" class="form-control" For="(() => clienteInputModel.Endereco.Cep)" Immediate="true"/>
+                <MudTextField Mask="@CepMask" Label="CEP" Variant="Variant.Filled" id="CEP" @bind-Value="clienteInputModel.Endereco.Cep" TextChanged="HandleCepInput" class="form-control" For="(() => clienteInputModel.Endereco.Cep)" Immediate="true"/>
                 <MudTextField Label="Logradouro" Variant="Variant.Filled" id="Logradouro" @bind-Value="clienteInputModel.Endereco.Logradouro" class="form-control" For="(() => clienteInputModel.Endereco.Logradouro)" Immediate="true"/>
                 <MudTextField Label="Numero" Variant="Variant.Filled" id="Numero" @bind-Value="clienteInputModel.Endereco.Numero" class="form-control" For="(() => clienteInputModel.Endereco.Numero)" Immediate="true"/>
                 <MudTextField Label="Complemento" Variant="Variant.Filled" id="Complemento" @bind-Value="clienteInputModel.Endereco.Complemento" class="form-control" For="(() => clienteInputModel.Endereco.Complemento)" Immediate="true"/>
         </MudCardContent>
-
-        <MudText Align="Align.Left" Class="mb-n4">Contato</MudText>
+        
         <MudCardContent>
             <MudTextField Label="E-mail" Variant="Variant.Filled" id="Email" @bind-Value="clienteInputModel.Email" class="form-control" For="(() => clienteInputModel.Email)" Immediate="true"/>
             <MudTextField Label="Telefone" Mask="@TelefoneMask" Variant="Variant.Filled" id="Telefone" @bind-Value="clienteInputModel.Telefone" class="form-control" For="(() => clienteInputModel.Telefone)" Immediate="true"/>
@@ -76,6 +76,11 @@
     private string? sucessMessage = "";
     private string? failMessage = "";
     private bool _processing = false;
+    private string cepData = "nada ve irmao";
+
+    [Parameter]
+    public EventCallback<string> OnCepChanged { get; set; }
+
     private PatternMask TelefoneMask = new PatternMask("(00) 00000-0000") {
             CleanDelimiters = true
     };
@@ -107,6 +112,31 @@
         }
 
         failMessage = await response.Content.ReadAsStringAsync();
+    }
+
+    private async Task HandleCepInput()
+    {
+        var cep = clienteInputModel.Endereco.Cep;
+        
+        if (cep is { Length: 8 }){ 
+            var client = HttpClientFactory.CreateClient("ApiCepBrasilAberto");
+            var response = await client.GetAsync($"v1/zipcode/{clienteInputModel.Endereco.Cep}");
+            if (response.StatusCode == HttpStatusCode.OK)
+            {
+                var options = new JsonSerializerOptions
+                {
+                    PropertyNameCaseInsensitive = true
+                };
+                var jsonString = await response.Content.ReadAsStringAsync();
+                cepData = jsonString;
+                var endereco = JsonSerializer.Deserialize<Root>(jsonString, options);
+                if (endereco != null) clienteInputModel.Endereco.Logradouro = endereco.result.street;
+            }
+        }
+        else
+        {
+            clienteInputModel.Endereco.Logradouro = "";
+        }
     }
 
 }
