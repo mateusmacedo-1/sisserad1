@@ -21,13 +21,13 @@
 
         - name: Build and publish API image
           run: |
-            docker build -t sisseradapi -f Dockerfile.back .
+            docker build -t sisseradapi:$(basename ${{ github.ref }}) -f Dockerfile.back .
             docker tag sisseradapi mateus314/sisseradapi:$(basename ${{ github.ref }})
             docker push mateus314/sisseradapi:$(basename ${{ github.ref }})
 
         - name: Build and publish Front image
           run: |
-            docker build -t sisseradfront -f Dockerfile.front .
+            docker build -t sisseradfront:$(basename ${{ github.ref }}) -f Dockerfile.front .
             docker tag sisseradfront mateus314/sisseradfront:$(basename ${{ github.ref }})
             docker push mateus314/sisseradfront:$(basename ${{ github.ref }})
 
