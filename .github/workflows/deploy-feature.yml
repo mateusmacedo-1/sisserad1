@@ -1,35 +1,35 @@
-name: gh-pages-deploy-feature
+  name: gh-pages-deploy-feature
 
-on:
-  push:
-    branches:
-      - feature
-      - release
+  on:
+    push:
+      branches:
+        - feature
+        - release
 
-jobs:
-  publish-docker-images:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-        
-      - name: Login to Docker Hub
-        uses: docker/login-action@v3
-        with:
-          username: ${{ secrets.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_PASSWORD }}
+  jobs:
+    publish-docker-images:
+      runs-on: ubuntu-latest
+      steps:
+        - name: Checkout code
+          uses: actions/checkout@v4
+          
+        - name: Login to Docker Hub
+          uses: docker/login-action@v3
+          with:
+            username: ${{ secrets.DOCKERHUB_USERNAME }}
+            password: ${{ secrets.DOCKERHUB_PASSWORD }}
 
-      - name: Build and publish API image
-        run: |
-          docker build -t sisseradapi -f Dockerfile.back .
-          docker tag sisseradapi mateus314/sisseradapi:${{ github.ref }}
-          docker push mateus314/sisseradapi:${{ github.ref }}
+        - name: Build and publish API image
+          run: |
+            docker build -t sisseradapi -f Dockerfile.back .
+            docker tag sisseradapi mateus314/sisseradapi:$(basename ${{ github.ref }})
+            docker push mateus314/sisseradapi:$(basename ${{ github.ref }})
 
-      - name: Build and publish Front image
-        run: |
-          docker build -t sisseradfront -f Dockerfile.front .
-          docker tag sisseradfront mateus314/sisseradfront:${{ github.ref }}
-          docker push mateus314/sisseradfront:${{ github.ref }}
+        - name: Build and publish Front image
+          run: |
+            docker build -t sisseradfront -f Dockerfile.front .
+            docker tag sisseradfront mateus314/sisseradfront:$(basename ${{ github.ref }})
+            docker push mateus314/sisseradfront:$(basename ${{ github.ref }})
 
 
-  
+    
